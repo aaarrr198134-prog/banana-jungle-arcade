@@ -12,7 +12,7 @@
 const c=document.querySelector('canvas'),g=c.getContext('2d'),$=id=>document.getElementById(id),W=1100,H=680;
 let best=0;try{best=Number(localStorage.getItem('banana-best'))||0}catch{}$('best').textContent=best;
 const keys=new Set(), pals=[{x:175,y:180},{x:870,y:170},{x:720,y:410}],lanes=[180,300,420];
-let state='menu',p,vis,fruit,shots,fx,score,ammo,hits,lives,elapsed,spawn,keeper,charge=0,aim={x:550,y:590},held=false,last=0,notice='',noticeTime=0;
+let state='menu',p,vis=[],fruit=[],shots=[],fx=[],score=0,ammo=3,hits=0,lives=3,elapsed=0,spawn=0,keeper,charge=0,aim={x:550,y:590},held=false,last=0,notice='',noticeTime=0;
 function reset(){p={x:510,y:300,back:false};vis=[];fruit=[];shots=[];fx=[];score=0;ammo=3;hits=0;lives=3;elapsed=0;spawn=0;keeper=null;held=false;charge=0;state='play';$('overlay').classList.add('hidden');message('Лови фрукты — они пополняют запас!');sync()}
 function sync(){$('score').textContent=score;$('ammo').textContent=ammo+' / 5';$('hits').textContent=hits;$('lives').textContent='♥ '.repeat(lives)||'—';$('best').textContent=best}
 function message(s){notice=s;noticeTime=4;$('status').textContent=s}
