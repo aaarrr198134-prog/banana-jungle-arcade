@@ -42,6 +42,15 @@ main{grid-template-columns:minmax(0,1fr);grid-template-rows:28px minmax(0,1fr);g
 .next-button{min-width:165px;margin-top:18px}.player-guide{max-width:620px;margin:0 auto;text-align:left}.player-guide>p{font-size:16px;line-height:1.65;margin:15px 0}.player-guide .game-goal{color:#ffe1a2;font-weight:650}.controls-guide,.audio-sources{border:1px solid #d4b67b50;border-radius:10px;padding:10px 14px;margin:16px auto;text-align:left}.controls-guide summary,.audio-sources summary{cursor:pointer;color:#f1d59b;font-size:14px}.guide-controls{display:grid;grid-template-columns:1fr 1fr;gap:18px}.guide-controls p{font-size:12px;line-height:1.65}.rotate-phone{font-size:66px;color:#f1d59b;letter-spacing:10px;margin:10px 0 18px}.setup-copy{font-size:17px!important;line-height:1.8!important}.audio-sources{max-width:550px;margin-top:26px}.audio-sources .sound-credit{line-height:1.7}.audio-sources summary{font-size:11px;color:#cbb38f}#setupScreen h2{font-size:32px}#creditsScreen .next-button{margin-top:10px}
 @media(max-width:550px){.player-guide>p{font-size:14px;line-height:1.6}.guide-controls{grid-template-columns:1fr;gap:0}#setupScreen h2{font-size:28px}.setup-copy{font-size:14px!important}.rotate-phone{font-size:52px}.next-button{margin-top:12px}}
 @media(orientation:landscape) and (max-height:500px){.player-guide>p{font-size:13px;line-height:1.5;margin:9px 0}#instructionsScreen h2{font-size:26px}.controls-guide{margin:8px auto;padding:7px 11px}.next-button{margin-top:8px}.rotate-phone{font-size:42px;margin:0 0 8px}#setupScreen h2{font-size:27px;margin:5px 0 10px}.setup-copy{font-size:13px!important;line-height:1.5!important;margin:10px 0}.audio-sources{margin-top:15px}#creditsScreen .credits{padding:12px;margin:12px auto;font-size:15px;line-height:1.8}}
+
+/* Center both control groups at the edges, with a larger stick and thumb. */
+:root{--stick-size:min(171.6px,43.2vw)}
+.mobile-controls{top:50%;bottom:auto;align-items:center;transform:translateY(-50%)}
+.mobile-controls>.stick-group{align-self:center}
+.mobile-controls .movement-controls{transform:none}
+.mobile-controls .stick-knob{width:64.8px;height:64.8px;left:calc(50% - 32.4px);top:calc(50% - 32.4px);font-size:30px}
+@media(orientation:landscape) and (max-height:650px){:root{--stick-size:146.64px}}
+@media(orientation:landscape) and (max-height:350px){:root{--stick-size:129.6px}}
 </style>
 
 <main>
@@ -135,7 +144,7 @@ function leaf(x,y,angle,size=18){g.save();g.translate(x,y);g.rotate(angle);g.fil
 
 function shade(x,y,r,a,b){return a}
 function poop(x,y,size=25){size*=1.5;g.save();g.translate(x,y-size*.25);g.scale(size/28,size/28);g.fillStyle='#946d48';g.strokeStyle='#332b25';g.lineWidth=3;g.beginPath();g.moveTo(-14,9);g.quadraticCurveTo(-19,1,-8,-2);g.quadraticCurveTo(-12,-10,-1,-10);g.quadraticCurveTo(5,-12,3,-18);g.quadraticCurveTo(17,-10,10,-4);g.quadraticCurveTo(20,2,14,10);g.closePath();g.fill();g.stroke();ellipse(-5,-1,3.2,3.8,'#fff0cb');ellipse(5,-1,3.2,3.8,'#fff0cb');ellipse(-4.5,-.5,1.3,2,'#332b25');ellipse(4.5,-.5,1.3,2,'#332b25');curve([-6,5,-3,10,3,10,6,5],'#332b25',2);g.restore()}
-function fruitGraphic(icon,x,y,size=28){g.save();g.translate(x,y);g.scale(size/28,size/28);if(icon==='🍎'){ellipse(-5,-3,9,12,shade(-4,-4,14,'#ff9877','#c6373e'));ellipse(5,-3,9,12,'#dc4b43');ellipse(-7,-7,2,4,'#ffbea1',.5);curve([0,-12,-2,-17,1,-18,2,-20],'#684a30',3);leaf(2,-18,-.15,6)}else{g.fillStyle='#ffd867';g.beginPath();g.moveTo(-12,-12);g.quadraticCurveTo(-2,8,13,-9);g.quadraticCurveTo(10,17,-8,9);g.quadraticCurveTo(-18,0,-12,-12);g.fill();curve([-10,-7,-9,10,5,11,11,-5],'#d49c37',2);line(-12,-12,-10,-16,'#6b713e',4);ellipse(11,-7,2,3,'#735337')}g.restore()}
+function fruitGraphic(icon,x,y,size=28){size*=1.2;g.save();g.translate(x,y);g.scale(size/28,size/28);if(icon==='🍎'){ellipse(-5,-3,9,12,shade(-4,-4,14,'#ff9877','#c6373e'));ellipse(5,-3,9,12,'#dc4b43');ellipse(-7,-7,2,4,'#ffbea1',.5);curve([0,-12,-2,-17,1,-18,2,-20],'#684a30',3);leaf(2,-18,-.15,6)}else{g.fillStyle='#ffd867';g.beginPath();g.moveTo(-12,-12);g.quadraticCurveTo(-2,8,13,-9);g.quadraticCurveTo(10,17,-8,9);g.quadraticCurveTo(-18,0,-12,-12);g.fill();curve([-10,-7,-9,10,5,11,11,-5],'#d49c37',2);line(-12,-12,-10,-16,'#6b713e',4);ellipse(11,-7,2,3,'#735337')}g.restore()}
 
 function vineGeometry(i,time=elapsed){const x=65+i*161,s=Math.sin(time*1.15+i*.9)*28;return[x,0,x-18+s*.35,150,x+25+s*.8,310,x+s,475]}
 function horizontalVine(i){const y=[58,145,265,390][i],sag=i===0?38:62;return[50,y,310,y+sag,730,y+sag,1050,y]}
